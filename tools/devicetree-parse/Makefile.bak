@@ -1,0 +1,38 @@
+TARGET = devicetree-parse
+
+DEBUG ?= 0
+
+CC = clang
+OBJCFLAGS = -std=gnu11
+OBJCFLAGS += -I/usr/lib/gcc/x86_64-pc-linux-gnu/16/include
+OBJCFLAGS += $(shell gnustep-config --objc-flags)
+
+BASELIBS = $(shell gnustep-config --base-libs)
+
+CFLAGS = -O2 -Wall
+
+ifneq ($(DEBUG),0)
+DEFINES += -DDEBUG=$(DEBUG)
+endif
+
+all: devicetree-parse devicetree-repack
+
+devicetree-parse: devicetree-parse.o parse.o
+	$(CC) $(CFLAGS) $(DEFINES) -o $@ $^
+
+devicetree-repack: repack.o
+	$(CC) $(CFLAGS) $(DEFINES) -o $@ $^ $(BASELIBS)
+
+devicetree-parse.o: devicetree-parse.c devicetree-parse.h
+	$(CC) $(CFLAGS) $(OBJCFLAGS) $(DEFINES) -c -o $@ $<
+
+parse.o: parse.c devicetree-parse.h
+	$(CC) $(CFLAGS) $(DEFINES) -c -o $@ $<
+
+repack.o: repack.m
+	$(CC) $(CFLAGS) $(OBJCFLAGS) $(DEFINES) -c -o $@ $<
+
+clean:
+	rm -f *.o devicetree-parse devicetree-repack
+
+.PHONY: all clean
