@@ -1,0 +1,43 @@
+# 运行产物与本地固件
+/donors/
+/ipsw/
+/state/
+/build/
+/research/
+/extracted/
+*.ipsw
+*.dmg
+*.img4
+*.raw
+IM4M*
+*keybag*
+*.p12
+
+# 设备备份（激活记录 / FairPlay / 基带偏好，含 IMEI，不入库）
+/backup/
+
+# 编辑器 / 工作区
+.workbuddy/
+.vscode/
+.idea/
+# python / 杂项
+__pycache__/
+*.pyc
+.DS_Store
+
+/tools/bin/
+/tools/apfs-fuse/
+/tools/ldid/
+/tools/vendor/linux/*/apfs-fuse
+/tools/vendor/linux/*/ldid
+/tools/checkra1n-kpf/checkra1n/kpf-test/kpf-test.macos
+/tools/checkra1n-kpf/checkra1n/kpf-test/kpf-test.linux
+/tools/checkra1n-kpf/checkra1n/kpf-test/linux-build/
+# kpf 宿主侧反汇编产物（make host-blobs 生成，make clean 删除）
+/tools/checkra1n-kpf/checkra1n/kpf-test/host-blobs/
+.venv/
+
+# iOS15 keybag implementation source (not device keybag material)
+!/patches/ios15/rootfs/keybag_boot.py
+!/patches/ios15/impl/rootfs/keybag_boot.py
+!/patches/ios15/impl/kc/sep_data-keybag-16H88.json
